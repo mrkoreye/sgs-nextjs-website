@@ -1,6 +1,11 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { BuilderComponent, builder, useIsPreviewing } from "@builder.io/react";
+import {
+  BuilderComponent,
+  builder,
+  useIsPreviewing,
+  BuilderContent,
+} from "@builder.io/react";
 import DefaultErrorPage from "next/error";
 import Head from "next/head";
 
@@ -56,6 +61,12 @@ export default function Page({ page }) {
       <Head>
         <title>{page?.data.title}</title>
       </Head>
+      <BuilderContent content={page} model="page">
+        {(data, loading, content) => {
+          console.log("BUILDER CONTENT DATA: ", { data, content });
+          return <div>{data?.title}</div>;
+        }}
+      </BuilderContent>
       {/* Render the Builder page */}
       <BuilderComponent
         model="page"
