@@ -57,7 +57,11 @@ export default function Page({ page }) {
         <title>{page?.data.title}</title>
       </Head>
       {/* Render the Builder page */}
-      <BuilderComponent model="page" content={page} />
+      <BuilderComponent
+        model="page"
+        content={page}
+        contentLoaded={(data, content) => console.log({ data, content })}
+      />
     </>
   );
 }
