@@ -61,18 +61,26 @@ export default function Page({ page }) {
       <Head>
         <title>{page?.data.title}</title>
       </Head>
-      <BuilderContent content={page} model="page">
-        {(data, loading, content) => {
-          console.log("BUILDER CONTENT DATA: ", { data, content });
-          return <div>{data?.title}</div>;
-        }}
-      </BuilderContent>
       {/* Render the Builder page */}
       <BuilderComponent
         model="page"
         content={page}
         contentLoaded={(data, content) => console.log({ data, content })}
       />
+
+      {/* <BuilderComponent
+        model="page"
+        content={page}
+        contentLoaded={(data, content) => {
+          window.BUILDER_CONTENT_DATA = data;
+          setTimeout(() => {
+            if (window.BUILDER_CONTENT_DATA) {
+              console.log("Builder data: ", window.BUILDER_CONTENT_DATA);
+              window.BUILDER_CONTENT_DATA = null;
+            }
+          }, 3000);
+        }}
+      /> */}
     </>
   );
 }
