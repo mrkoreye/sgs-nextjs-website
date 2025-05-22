@@ -57,7 +57,33 @@ const Navbar: React.FC = () => {
                 Shows
               </Link>
             </li>
-            {/* Additional navigation links can be added here */}
+            <li>
+              <Link
+                href="/music"
+                className={router.pathname === "/music" ? styles.active : ""}
+                onClick={closeMenu}
+              >
+                Music
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/about"
+                className={router.pathname === "/about" ? styles.active : ""}
+                onClick={closeMenu}
+              >
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                className={router.pathname === "/contact" ? styles.active : ""}
+                onClick={closeMenu}
+              >
+                Contact
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

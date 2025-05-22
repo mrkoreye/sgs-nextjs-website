@@ -26,7 +26,16 @@
 
 .socialLinks {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
+}
+
+.socialLink {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.socialLink:hover {
+  color: #4a90e2;
 }
 
 @media (max-width: 768px) {
