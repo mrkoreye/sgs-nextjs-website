@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {
   BuilderComponent,
@@ -8,6 +8,7 @@ import {
 } from "@builder.io/react";
 import DefaultErrorPage from "next/error";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
 // Replace with your Public API Key
 builder.init("b07842f39ed1400ebfcf46513c61c732");
@@ -44,9 +45,21 @@ export async function getStaticPaths() {
   };
 }
 
+// Client-side only BuilderComponent to avoid hydration issues
+const ClientBuilderComponent = dynamic(
+  () => import("@builder.io/react").then((mod) => mod.BuilderComponent),
+  { ssr: false },
+);
+
 export default function Page({ page }) {
   const router = useRouter();
   const isPreviewing = useIsPreviewing();
+  const [isClient, setIsClient] = useState(false);
+
+  // Only render BuilderComponent on the client to avoid hydration issues
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   if (router.isFallback) {
     return <h1>Loading...</h1>;
@@ -59,28 +72,19 @@ export default function Page({ page }) {
   return (
     <>
       <Head>
-        <title>{page?.data.title}</title>
+        <title>{page?.data?.title || "Solid Gold Stranger"}</title>
       </Head>
-      {/* Render the Builder page */}
-      <BuilderComponent
-        model="page"
-        content={page}
-        contentLoaded={(data, content) => console.log({ data, content })}
-      />
 
-      {/* <BuilderComponent
-        model="page"
-        content={page}
-        contentLoaded={(data, content) => {
-          window.BUILDER_CONTENT_DATA = data;
-          setTimeout(() => {
-            if (window.BUILDER_CONTENT_DATA) {
-              console.log("Builder data: ", window.BUILDER_CONTENT_DATA);
-              window.BUILDER_CONTENT_DATA = null;
-            }
-          }, 3000);
-        }}
-      /> */}
+      {/* Use a client-side only component to avoid hydration mismatch */}
+      {isClient ? (
+        <ClientBuilderComponent
+          model="page"
+          content={page}
+          contentLoaded={(data, content) => console.log({ data, content })}
+        />
+      ) : (
+        <div style={{ minHeight: "100vh" }}>Loading content...</div>
+      )}
     </>
   );
 }
