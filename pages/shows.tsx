@@ -63,7 +63,7 @@ export default function Shows() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <main className={styles.main}>
+      <div className={styles.main}>
         <div className={styles.container}>
           <h1 className={styles.title}>Upcoming Shows</h1>
           <p className={styles.subtitle}>
@@ -108,7 +108,7 @@ export default function Shows() {
             </p>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }
