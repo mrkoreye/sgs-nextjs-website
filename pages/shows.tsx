@@ -65,6 +65,7 @@ export default function Shows() {
       </Head>
       <div className={styles.main}>
         <div className={styles.container}>
+          <h1 className={styles.helloTitle}>hello</h1>
           <h1 className={styles.title}>Upcoming Shows</h1>
           <p className={styles.subtitle}>
             Come see Solid Gold Stranger live in concert!
